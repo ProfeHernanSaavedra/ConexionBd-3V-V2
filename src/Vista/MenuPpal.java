@@ -37,6 +37,7 @@ public class MenuPpal extends javax.swing.JFrame {
         jmi_ingresarCarrera = new javax.swing.JMenuItem();
         jmi_listarCarrera = new javax.swing.JMenuItem();
         jmi_eliminarCarrera = new javax.swing.JMenuItem();
+        jmi_actualizarCarrera = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmi_salir = new javax.swing.JMenuItem();
 
@@ -70,6 +71,14 @@ public class MenuPpal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jmi_eliminarCarrera);
+
+        jmi_actualizarCarrera.setText("Actualizar Carrera");
+        jmi_actualizarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_actualizarCarreraActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmi_actualizarCarrera);
 
         jMenu1.add(jMenu3);
 
@@ -127,6 +136,11 @@ public class MenuPpal extends javax.swing.JFrame {
         fec.setVisible(true);
     }//GEN-LAST:event_jmi_eliminarCarreraActionPerformed
 
+    private void jmi_actualizarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_actualizarCarreraActionPerformed
+        Form_actualizarCarrera fac = new Form_actualizarCarrera();
+        fac.setVisible(true);
+    }//GEN-LAST:event_jmi_actualizarCarreraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -180,6 +194,7 @@ public class MenuPpal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jmi_actualizarCarrera;
     private javax.swing.JMenuItem jmi_eliminarCarrera;
     private javax.swing.JMenuItem jmi_ingresarCarrera;
     private javax.swing.JMenuItem jmi_listarCarrera;

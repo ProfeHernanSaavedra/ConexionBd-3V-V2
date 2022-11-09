@@ -5,12 +5,19 @@
  */
 package Vista;
 
+import Controlador.Registro;
+import Modelo.Carrera;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USRVI-LC2
  */
 public class Form_actualizarCarrera extends javax.swing.JFrame {
 
+    String nombreBuscar = "";
+    
+    
     /**
      * Creates new form Form_actualizarCarrera
      */
@@ -29,24 +36,34 @@ public class Form_actualizarCarrera extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jtxt_nombreCarrera = new javax.swing.JTextField();
+        jbtn_buscarCarrera = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jtxt_nombreCarreraNew = new javax.swing.JTextField();
+        jbtn_actualizarCarrera = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Actualizar Carrera");
 
         jLabel2.setText("Nombre Carrera:");
 
-        jButton1.setText("Buscar");
+        jbtn_buscarCarrera.setText("Buscar");
+        jbtn_buscarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_buscarCarreraActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Nombre Nuevo:");
 
-        jButton2.setText("Actualizar");
+        jbtn_actualizarCarrera.setText("Actualizar");
+        jbtn_actualizarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_actualizarCarreraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,12 +80,12 @@ public class Form_actualizarCarrera extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2))
+                    .addComponent(jtxt_nombreCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxt_nombreCarreraNew))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbtn_actualizarCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtn_buscarCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
@@ -79,18 +96,56 @@ public class Form_actualizarCarrera extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jtxt_nombreCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtn_buscarCarrera))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(jtxt_nombreCarreraNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtn_actualizarCarrera))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtn_buscarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_buscarCarreraActionPerformed
+       
+        //rescatar datos del formulario
+        nombreBuscar = this.jtxt_nombreCarrera.getText();
+        
+        
+        Registro reg = new Registro();
+        
+        Carrera car = reg.buscarPorNombre(nombreBuscar);
+        
+        String nombreNew = car.getNombre();
+        
+        this.jtxt_nombreCarreraNew.setText(nombreNew); //mostrando
+        
+        
+        
+        
+    }//GEN-LAST:event_jbtn_buscarCarreraActionPerformed
+
+    private void jbtn_actualizarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_actualizarCarreraActionPerformed
+        Registro reg = new Registro();
+        
+        String nombreNew = this.jtxt_nombreCarreraNew.getText(); // obteniendo
+        
+        
+        //robo
+         
+        
+        Carrera carrera = new Carrera(0, nombreNew);
+        
+        if (reg.actualizar(nombreBuscar,nombreNew)) {
+           JOptionPane.showMessageDialog(null,"Carrera actualizada","Actualizar Carrera",2);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Carrera NO actualizada","Actualizar Carrera",1);
+        }
+    }//GEN-LAST:event_jbtn_actualizarCarreraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,12 +183,12 @@ public class Form_actualizarCarrera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton jbtn_actualizarCarrera;
+    private javax.swing.JButton jbtn_buscarCarrera;
+    private javax.swing.JTextField jtxt_nombreCarrera;
+    private javax.swing.JTextField jtxt_nombreCarreraNew;
     // End of variables declaration//GEN-END:variables
 }

@@ -71,7 +71,7 @@ public class Registro {
         }
     }
 
-    public boolean actualizar(Carrera carrera) {
+    public boolean actualizar(String nombreBuscar,String nombre) {
         try {
             Conexion con = new Conexion();
             Connection conx = con.obtenerConexion();
@@ -79,8 +79,8 @@ public class Registro {
             String query = "UPDATE carrera set nombre = ? where nombre = ?";
             PreparedStatement stmt = conx.prepareStatement(query);
 
-            stmt.setString(1, carrera.getNombre());
-            stmt.setString(2, carrera.getNombre());
+            stmt.setString(1, nombre);
+            stmt.setString(2, nombreBuscar);
 
             stmt.executeUpdate();
             stmt.close();
@@ -124,5 +124,36 @@ public class Registro {
         return lista;
 
     }
+    
+    public Carrera buscarPorNombre(String nombre)
+    {
+        Carrera car = new Carrera();
+        
+        try {
+            Conexion con = new Conexion();
+            Connection conx = con.obtenerConexion();
+
+            String query = "SELECT * FROM carrera where nombre = ?";
+            PreparedStatement stmt = conx.prepareStatement(query);
+            stmt.setString(1, nombre);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                car.setNombre(rs.getString("nombre"));
+                
+            }
+            rs.close();
+            stmt.close();
+            conx.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL al listar carrera por nombre " + e.getMessage());
+        }
+        return car;
+        
+        
+    }
+    
+    
 
 }
